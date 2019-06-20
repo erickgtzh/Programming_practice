@@ -36,9 +36,10 @@ public class Main {
 
         while(aux.next!=null){
             if(cont==index){
-                Node der = aux;
-                head = new Node(val);
-                head.next = der;
+                Node n = aux.next;
+                Node newNode = new Node(val);
+                newNode.next = n;
+                aux.next = newNode;
             }
             aux = aux.next;
             cont++;
