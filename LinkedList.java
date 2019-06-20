@@ -29,6 +29,22 @@ public class Main {
         list.head.next = aux;
     }
 
+    void Insert(Main list,int index, int val){
+        Node aux = list.head;
+
+        int cont = 0;
+
+        while(aux.next!=null){
+            if(cont==index){
+                Node der = aux;
+                head = new Node(val);
+                head.next = der;
+            }
+            aux = aux.next;
+            cont++;
+        }
+    }
+
     void PrintAll(Main list){
         Node current = list.head;
         while(current!=null){
@@ -45,6 +61,7 @@ public class Main {
         main.Append(main,4);
         main.Append(main,5);
         main.PreAppend(main,0);
+        main.Insert(main,2,10);
         main.PrintAll(main);
     }
 }
