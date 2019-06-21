@@ -36,10 +36,12 @@ public class Main {
 
         while(aux.next!=null){
             if(cont==index){
-                Node n = aux.next;
+                Node n = aux;
+                Node sig = aux.next;
                 Node newNode = new Node(val);
-                newNode.next = n;
-                aux.next = newNode;
+                newNode.next = sig;
+                n.next = newNode;
+                aux = n;
             }
             aux = aux.next;
             cont++;
@@ -54,6 +56,19 @@ public class Main {
         }
     }
 
+    void Remove(Main list, int index){
+        Node current = list.head;
+        int cont = 0;
+
+        while(current!=null){
+            if(index==cont){
+                current.next = current.next.next;
+            }
+            current = current.next;
+            cont++;
+        }
+    }
+
     public static void main(String[] args) {
         Main main = new Main();
         main.PreAppend(main,1);
@@ -62,7 +77,8 @@ public class Main {
         main.Append(main,4);
         main.Append(main,5);
         main.PreAppend(main,0);
-        main.Insert(main,2,10);
+        main.Insert(main,1,10);
+        main.Remove(main,1);
         main.PrintAll(main);
     }
 }
