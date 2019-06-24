@@ -2,6 +2,7 @@ import javax.swing.plaf.ColorUIResource;
 
 public class Main {
     public Node head;
+    public Node tail;
 
     class Node{
         int value;
@@ -15,9 +16,21 @@ public class Main {
         }
     }
 
-    void Append(Main list,int val){
+    void Append(int val){
         Node newNode = new Node(val);
         if(head==null){
+            head = newNode;
+        }else{
+            newNode.prev = tail;
+            tail.next = newNode;
+            tail = newNode;
+        }
+    }
+
+    void PreAppend(int val){
+        Node newNode = new Node(val);
+        if(head==null){
+            tail = newNode;
             head = newNode;
         }else{
             head.prev = newNode;
@@ -26,34 +39,29 @@ public class Main {
         }
     }
 
-    void PreAppend(Main list, int val){
-        Node aux = list.head;
-        list.head = new Node(val);
-        list.head.next = aux;
-    }
-
-    void Insert(Main list,int index, int val){
-        Node aux = list.head;
+    void Insert(int index, int val){
+        Node curr = head;
 
         int cont = 0;
 
-        while(aux.next!=null){
+        while(curr.next!=null){
             if(cont==index){
-                Node n = aux;
-                Node sig = aux.next;
+                Node sig = curr.next;
                 Node newNode = new Node(val);
+                sig.prev = newNode;
                 newNode.next = sig;
-                n.next = newNode;
-                aux = n;
+                curr.next = newNode;
+                newNode.prev = curr;
+                break;
             }
-            aux = aux.next;
+            curr = curr.next;
             cont++;
         }
     }
 
-    void PrintAll(Main list){
-        Node current = list.head;
-        Node tail = null;
+    void PrintAll(){
+        Node current = head;
+
         System.out.println("Normal");
         while(current!=null){
             tail = current;
@@ -68,29 +76,34 @@ public class Main {
         }
     }
 
-    void Remove(Main list, int index){
-        Node current = list.head;
+    void Remove(int index){
+        Node curr = head;
         int cont = 0;
 
-        while(current!=null){
-            if(index==cont){
-                current.next = current.next.next;
+        while(curr.next!=null){
+            if(cont==index){
+                Node sig = curr.next;
+
+                curr = curr.prev;
+                sig.prev = curr;
+                curr.next = sig;
+                break;
             }
-            current = current.next;
+            curr = curr.next;
             cont++;
         }
     }
 
     public static void main(String[] args) {
         Main main = new Main();
-        main.PreAppend(main,1);
-        main.Append(main,2);
-        main.Append(main,3);
-        main.Append(main,4);
-        main.Append(main,5);
-//        main.PreAppend(main,0);
-//        main.Insert(main,1,10);
-//        main.Remove(main,1);
-        main.PrintAll(main);
+        main.PreAppend(1);
+        main.Append(2);
+        main.Append(3);
+        main.Append(4);
+        main.Append(5);
+        main.PreAppend(0);
+        main.Insert(1,10);
+        main.Remove(2);
+        main.PrintAll();
     }
 }
