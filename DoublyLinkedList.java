@@ -1,5 +1,3 @@
-import javax.swing.plaf.ColorUIResource;
-
 public class Main {
     public Node head;
     public Node tail;
