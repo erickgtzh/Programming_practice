@@ -18,6 +18,7 @@ public class Main {
         Node newNode = new Node(val);
         if(head==null){
             head = newNode;
+            tail = newNode;
         }else{
             newNode.prev = tail;
             tail.next = newNode;
